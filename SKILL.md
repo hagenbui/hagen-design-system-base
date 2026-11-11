@@ -5,7 +5,7 @@ description: "Use for any work on the Hagen Design System Base Figma file or a t
 
 # Hagen Design System Base: how to work
 
-**Skill version 1.1 (2026-11-10).** Changes per version: README.md.
+**Skill version 1.2 (2026-11-11).** Changes per version: README.md.
 
 The goal is an agent-ready mobile design system for IAA/IAP (ad and in-app-purchase monetized) apps. An agent given a prompt should be able to build a full working app from components, tokens and rules only, without inventing layout.
 
@@ -82,6 +82,17 @@ At session start in a tier 2 file, compare its stamp with the base RULES version
 - Base rules newer: read the base CHANGELOG "Rules versions" from the stamped version up, list the app parts it affects, tell the designer, and update the affected parts with approval. Then update the stamp.
 - Skill newer: apply the format changes listed in README.md for the versions in between (for example the block split in 1.1), then update the stamp.
 - Stamp missing: add it with today's versions after reading both, and say so.
+- No RULES block at all: follow "Starting a tier 2 file with no rules" first.
+
+## Starting a tier 2 file with no rules
+
+If an app file has no page AGENT RULES (PROJECT), or that page has no RULES block, set it up before any other work. Claim the rules page first. The order is: template, then the file's own preferences on top, then the designer's OK.
+
+1. **Template.** Copy the block set and headings from the trial file Palm Reader: RULES, FLOWS, MAPPING, FINDINGS, CHANGELOG. Keep the read guide table, Claims, Changed since, and the rules that hold for any app (mix model as a draft, choosing a part, annotation layer, no dead ends, flow layout). Leave out everything Palm specific: its typeface, colors, parts, flows and findings. Give each copied rule the source "template from Palm Reader, date".
+2. **Read the file's preferences.** Without editing anything, scan what the designer already made: typefaces and sizes in use, fills, corner radius, spacing, repeated layers and their names, page and flow layout, and the app's language. Report counts with node links, not impressions.
+3. **Tweak the template.** Write each preference as a pending line under the template rule it changes: "Pending: the file uses X (N nodes, link). Template says Y. Proposal: Z." A preference can change a template rule, never a base rule. Where the file breaks a base rule (raw values, detached parts), log it in FINDINGS instead.
+4. **Approve.** Show the designer the pending list. Approved lines become rules with the source "designer, date". Rejected lines are removed.
+5. **Finish.** Add the "Built on" stamp and a CHANGELOG line. Local Typography variables, text styles, the color collection and page App Components follow the approval loop as usual.
 
 ## Core principle: plain base, tier 2 flavor
 

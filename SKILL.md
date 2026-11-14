@@ -5,7 +5,7 @@ description: "Use for any work on the Hagen Design System Base Figma file or a t
 
 # Hagen Design System Base: how to work
 
-**Skill version 1.5 (2026-11-14).** Changes per version: README.md.
+**Skill version 2.0 (2026-11-14).** Changes per version: README.md.
 
 The goal is an agent-ready mobile design system for IAA/IAP (ad and in-app-purchase monetized) apps. An agent given a prompt should be able to build a full working app from components, tokens and rules only, without inventing layout.
 
@@ -19,7 +19,7 @@ The rules live IN the Figma files. This skill is the process. Where this skill a
   - Page AGENT ROADMAP: spec blocks LOCKS (who edits which base part, rule 1.1) and ROADMAP (the single work queue: F fix, A add, R agent readiness).
   - Page Design (40017001:5504): previews and test screens, placed to the right of existing frames.
   - Hidden "_OLD ... text" nodes on those pages are the pre-2026-11-10 copies. Never read or edit them.
-- Tier 2 (one per app): a file that uses the base as a library. It has its own page AGENT RULES (PROJECT) with spec blocks RULES, FLOWS, MAPPING, FINDINGS, CHANGELOG and UX COPY, local Typography variables, 31 local text styles with base names, a local color collection, and a page App Components.
+- Tier 2 (one per app): a file that uses the base as a library. It has its own page AGENT RULES (PROJECT) with spec blocks RULES, FLOWS, MAPPING, FINDINGS, CHANGELOG and UX COPY, a page AGENT BRIEF (PROJECT) with the block BRIEF, a page AGENT SITEMAP (PROJECT) with the block SITEMAP, local Typography variables, 31 local text styles with base names, a local color collection, and a page App Components.
   - New apps start from "Tier 2 Template", key snpHcKTKy0rzuFnC9h4570: a clean file with those pages, blocks and styles and neutral placeholder values. The designer duplicates it (file name menu > Duplicate) and sends the link of the copy. A file can't be duplicated from the API, and enabling the base library in a new file is also the designer's step.
   - Trial file: "Palm Reader", key q8vh5DZone2kxMhE1P5zBJ. Its rules are Palm's own and stay there. Never copy rules from it into another file.
 - QR Scan hC7jBaSrNHXQBNu0J0JrQh: old source file, read only. Never edit, sync or map it.
@@ -33,7 +33,7 @@ Always read (base):
 
 Read only when needed (base): ROADMAP (choosing work, updating an item), AUDIT (QR Scan audit, P/D/Q review), CHANGELOG (why or when; to log, its first 15 lines).
 
-In a tier 2 file, also read its RULES block in full and check its "Built on" stamp (see Versioning). Open FLOWS, MAPPING, FINDINGS or CHANGELOG only when its table says the task needs them.
+In a tier 2 file, also read its RULES block in full and check its "Built on" stamp (see Versioning). Open FLOWS, MAPPING, FINDINGS or CHANGELOG only when its table says the task needs them. BRIEF and SITEMAP are separate pages, read when needed: BRIEF when you start the app, choose a feature or are asked why a screen exists, SITEMAP when you add, remove or link screens.
 
 All agent pages are spec blocks. Find one by page and name with `page.findOne(n=>n.type==='SPEC_BLOCK'&&n.name==='RULES')`, read it with `figma.spec.getContent({specNodeId, offset, maxLines})`, and edit with `figma.spec.editContent` (exact, unique matches). Never `setContent` a block that has content unless the designer asked for a rewrite. Inside tables, write `_`, `*` and `[` plainly: escapes show up as visible backslashes there.
 
@@ -95,6 +95,18 @@ If an app file has no page AGENT RULES (PROJECT), or that page has no RULES bloc
 3. **Tweak the template.** Write each preference as a pending line under the template rule it changes: "Pending: the file uses X (N nodes, link). Template says Y. Proposal: Z." A preference can change a template rule, never a base rule. Where the file breaks a base rule (raw values, detached parts), log it in FINDINGS instead.
 4. **Approve.** Show the designer the pending list. Approved lines become rules with the source "designer, date". Rejected lines are removed.
 5. **Finish.** Add the "Built on" stamp and a CHANGELOG line. Local Typography variables, text styles, the color collection and page App Components follow the approval loop as usual.
+
+## New app process
+
+Five stages, in this order. Each one ends with the designer's OK, and the next one does not start before it. Record each stage in the file. If a stage needs facts you don't have, ask. Never invent the PO's knowledge.
+
+1. **Context.** Read what the designer and the PO give you (documents, links, Figma, Drive). Write the page AGENT BRIEF: goal, audience, platforms and languages, features, monetization, references, constraints, open questions. Mark every unknown "to confirm". Gate: the brief is confirmed.
+2. **Sitemap.** Write the tree on the page AGENT SITEMAP: feature, then screen, then state, numbered the way FLOWS will be. A visual tree below it or in FigJam is optional, and the outline stays the source. Gate: the sitemap is approved.
+3. **Visual style.** Draft the typeface, look and style (RULES 2.1, 2.2, 2.4) and fill the App Color and Typography values. Show one style tile on page Design: a sample screen next to the tokens. Gate: the style is approved, and only then written as rules.
+4. **Wireframe.** Draw the sitemap screens in grayscale from base parts only, with the Illustration text box for art and Ad Slot for ads. The base is already plain, so it is the wireframe kit. Then write the parts needed list in MAPPING: base part used, missing (a FINDINGS T item), or custom (wrap, fork, local). Gate: the parts list is approved.
+5. **Build.** Base instances first, then the custom parts per the mix model (wrap first), then polish: done check, reapply scan, states, copy, art, both screen sizes. Gate: each screen and each custom part.
+
+Do not draw screens for stage 4 or 5 before stage 3 is approved. The Tier 2 Template already has the BRIEF and SITEMAP pages, so stages 1 and 2 start by filling them.
 
 ## Core principle: plain base, tier 2 flavor
 
@@ -201,6 +213,7 @@ For IAA/IAP apps, think about where ads and upsells fire: native ad between cont
 - A component description stores a straight apostrophe as `&#39;` and a straight double quote as `&quot;`. Write "Do not" instead of "Don't", and use curly quotes or none. Read a description back after writing it.
 - `figma.getNodeByIdAsync(id)` reaches nodes on other pages without switching the current page, so one call can read or set many parts.
 - Changing a FONT_FAMILY or weight variable can fail with "unloaded font Noto Sans ..." because the text styles briefly fall back. Load the named Noto fonts and the new fonts first, then set the values. Inter's semibold style is "Semi Bold" with a space.
+- To add a spec block (a new BRIEF or SITEMAP page), call `whoami` first and check `specs_enabled`, create the page, switch to it, then `figma.spec.createOnCanvasAsync({ title, content })`. Give it a non-empty title: the title becomes the block name you find it by.
 - `figma.spec.setContent` on a block that has a table can fail with "ambiguous table column correspondence". Write the block with a placeholder line, then put the table in with `editContent`.
 - Set `figma.skipInvisibleInstanceChildren = false` before touching hidden instance children.
 - A base icon slot keeps its 20 to 32 size when swapped, so use a separate Art swap property for large art.

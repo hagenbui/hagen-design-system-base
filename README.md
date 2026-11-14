@@ -19,6 +19,10 @@ This is a private repo, so the Mac running the command must be signed in to GitH
 
 Minor (1.1 to 1.2): wording and process. Major (1.x to 2.0): the page format in the Figma files changes. Each app file's RULES block stamps the skill version it was last checked against.
 
+- **2.0 (2026-11-14)**: new section "New app process" (context, sitemap, visual style, wireframe, build, with the designer's OK after each stage).
+  - Format change in the files: tier 2 files get two more pages, AGENT BRIEF (PROJECT) with the spec block BRIEF and AGENT SITEMAP (PROJECT) with the spec block SITEMAP, read when needed. Both are listed in the RULES "What to read, and when" table and in the PAGES line.
+  - Migrating an older app file (for example Palm Reader): create both pages with the same blocks as the Tier 2 Template (`figma.spec.createOnCanvasAsync`, after `whoami` confirms specs are enabled), add the two rows to the RULES read table and the two pages to the PAGES line, then update the "Built on" stamp.
+  - The Tier 2 Template (key snpHcKTKy0rzuFnC9h4570) already has both pages.
 - **1.5 (2026-11-14)**: new apps start from the "Tier 2 Template" file (key snpHcKTKy0rzuFnC9h4570), duplicated by the designer, not from Palm Reader. Palm Reader's rules stay in Palm Reader. The setup steps were reworded, UX COPY is listed as a block, and two gotchas were added (font variables, tables in setContent). No format change in the files.
 - **1.4 (2026-11-14)**: screen sizes no longer written in the skill. It points to the base rule 2.1 and the `_Device` collection (the base now uses iOS 375x812 and Android 360x800). No format change in the files.
 - **1.3 (2026-11-14)**: ideas from other design-system skills (Figma, Atlassian, designproject.io). New: "Describing a part" format (use for, don't use for with the alternative, pairs with, properties, states, invalid combinations, rule refs, date), two worked examples (build a screen, start a new app file), and a note to load the Figma plugin skills first. No format change in the files.

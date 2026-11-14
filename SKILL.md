@@ -5,7 +5,7 @@ description: "Use for any work on the Hagen Design System Base Figma file or a t
 
 # Hagen Design System Base: how to work
 
-**Skill version 1.2 (2026-11-11).** Changes per version: README.md.
+**Skill version 1.3 (2026-11-14).** Changes per version: README.md.
 
 The goal is an agent-ready mobile design system for IAA/IAP (ad and in-app-purchase monetized) apps. An agent given a prompt should be able to build a full working app from components, tokens and rules only, without inventing layout.
 
@@ -124,6 +124,19 @@ Button groups:
 - Primary plus a destructive choice plus cancel: Primary, Destructive Secondary, Ghost. One red button per group.
 - A row that opens a delete confirm stays a row. The red appears on the confirm button.
 
+## Describing a part
+
+Every public base part and every app part has a description in this form (base roadmap F1, R1). Agents find parts through search and read this text, so write only facts the part really has.
+- Use for: the job it does.
+- Do not use for: each wrong job, with the part to use instead.
+- Pairs with: the parts it sits with or inside, and where (bottom bar, header, List Card).
+- Properties: only those that exist, with defaults. No hypothetical variants.
+- States: the ones the part has.
+- Invalid combinations: what must not be set together, written as the problem plus the fix.
+- Rule refs and the date last reviewed.
+
+App parts also start with "Wraps: ...", "Fork of: ..." or "Local, no base match" (mix model). Set a description only on a component or component set, never on an instance.
+
 ## Building rules (summary, the RULES page is the source)
 
 - No raw numbers. Every padding, gap, radius and stroke binds to a Dimension variable. Screen size from _Device is the only exception.
@@ -159,6 +172,21 @@ Run the base text node "DONE CHECK SCRIPT" (page AGENT RULES, base rule 10.1) ex
 
 Then take a screenshot and look at it. Rewrite the HANDOFF block if it's older than the newest changelog line.
 
+## Examples
+
+**Build a screen.** Prompt: "Add a Result screen with a share action and two follow-up actions."
+- Read order, then claim the flow section you own.
+- Search the file for a screen doing the same job and reuse its pattern (reapply rule).
+- Build only from the app's wraps and base parts, bound to tokens. Share is a header icon button. The two follow-ups are stacked full width, Primary first, then Ghost (Choosing a part, Button groups).
+- Every action ends in an arrow or jump tag. Notes are in Vietnamese.
+- Run the done check, paste its counts, take a screenshot, log a CHANGELOG line, release the claim.
+
+**Start a new app file.** Prompt: "Start a new app called X on the base."
+- Read the base RULES and check the base version and this skill's version.
+- The file has no RULES block, so follow "Starting a tier 2 file with no rules": template, scan the file, pending lines, designer's OK, stamp.
+- Ask the designer for what the base can't decide: screen size, typeface, colors, and whether IAA is on. Never invent them.
+- Add the app's rules page, local Typography, text styles and color collection only through the approval loop.
+
 ## Design judgment
 
 Use the mobile-app-ui-design skill for UX judgment: hierarchy, thumb zone, empty, loading, error and success states, the peak-end moment, and industry conventions. Its numbers (spacing, padding, sizes, widths) never override the base rules.
@@ -167,6 +195,9 @@ For IAA/IAP apps, think about where ads and upsells fire: native ad between cont
 
 ## Figma gotchas
 
+- This skill sits on top of the Figma plugin skills and does not repeat their API rules. Before any `use_figma` call, load `figma-use`. Also load `figma-generate-design` when you draw or change a screen, and `figma-generate-library` when you build a part, a variable collection or a style. Pass the names in `skillNames`.
+- A component description stores a straight apostrophe as `&#39;` and a straight double quote as `&quot;`. Write "Do not" instead of "Don't", and use curly quotes or none. Read a description back after writing it.
+- `figma.getNodeByIdAsync(id)` reaches nodes on other pages without switching the current page, so one call can read or set many parts.
 - Set `figma.skipInvisibleInstanceChildren = false` before touching hidden instance children.
 - A base icon slot keeps its 20 to 32 size when swapped, so use a separate Art swap property for large art.
 - The base "_Device" collection is not published because of its "_" prefix, so tier 2 files can't bind screen size (renaming it is waiting on the designer).

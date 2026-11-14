@@ -1,6 +1,6 @@
 # Palm Reader findings: proposed skill improvements
 
-Source: the two Palm Reader sessions on 2026-11-09 and 2026-11-10 (designer messages, agent reports, 316 use_figma calls, 25 failed calls). Nothing here is applied yet. Each item says what happened, why, and the proposed change to SKILL.md (and where a rule belongs in Figma instead).
+Source: the two Palm Reader sessions on 2026-11-09 and 2026-11-10 (designer messages, agent reports, 316 use_figma calls, 25 failed calls). Status 2026-11-14: items 1 to 5 landed in skill 1.1 (wrapping gotchas, annotation layer rule, stored done check, choosing a part, claims). Skill 1.2 added the no-rules setup and 1.3 the part description format. The base RULES text for choosing a part and button groups still waits for the designer's approval. Each item says what happened, why, and the proposed change to SKILL.md (and where a rule belongs in Figma instead).
 
 ## 1. Drift when wrapping components
 

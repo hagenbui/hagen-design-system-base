@@ -5,7 +5,7 @@ description: "Use for any work on the Hagen Design System Base Figma file or a t
 
 # Hagen Design System Base: how to work
 
-**Skill version 1.3 (2026-11-14).** Changes per version: README.md.
+**Skill version 1.4 (2026-11-14).** Changes per version: README.md.
 
 The goal is an agent-ready mobile design system for IAA/IAP (ad and in-app-purchase monetized) apps. An agent given a prompt should be able to build a full working app from components, tokens and rules only, without inventing layout.
 
@@ -141,7 +141,7 @@ App parts also start with "Wraps: ...", "Fork of: ..." or "Local, no base match"
 
 - No raw numbers. Every padding, gap, radius and stroke binds to a Dimension variable. Screen size from _Device is the only exception.
 - Layout ladder 24 > 12 > 8 > 4 > 2: Content has padding 0 and gap 0. A Section has screen-padding-x 16 and section-padding-y 12. Heading to container is group-gap 12. A card has card-padding 16, gap group-gap, radius-surface, and fill bg-secondary. Rows use stack-gap 8. Text pairs use text-gap-tight / text-gap / text-gap-loose (rule 4.1).
-- Screen shell: Status Bar > Header > Content > bottom bar > Nav. Zones are full width, height hugs content, and nothing is clipped. Check every screen at 402 (iOS) and at 360 (Android).
+- Screen shell: Status Bar > Header > Content > bottom bar > Nav. Zones are full width, height hugs content, and nothing is clipped. Check every screen at both sizes in the file's screen size rule (base 2.1, the _Device collection).
 - Text uses only existing local text styles from the 7.11 pairing table. Never set fontName, fontSize or letterSpacing directly. Never create new style variants (rule 7.8).
 - Use base components and the preset use cases (Dialog & Modal "Use cases", Bottom Sheet Overlay, Dialog Overlay). Never detach, and never use sub-components or modules.
 - Naming: private parts start with "_". Property names are plain words with no "?". Use Material 3 / HIG terms.

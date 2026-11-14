@@ -5,7 +5,7 @@ description: "Use for any work on the Hagen Design System Base Figma file or a t
 
 # Hagen Design System Base: how to work
 
-**Skill version 1.4 (2026-11-14).** Changes per version: README.md.
+**Skill version 1.5 (2026-11-14).** Changes per version: README.md.
 
 The goal is an agent-ready mobile design system for IAA/IAP (ad and in-app-purchase monetized) apps. An agent given a prompt should be able to build a full working app from components, tokens and rules only, without inventing layout.
 
@@ -19,7 +19,9 @@ The rules live IN the Figma files. This skill is the process. Where this skill a
   - Page AGENT ROADMAP: spec blocks LOCKS (who edits which base part, rule 1.1) and ROADMAP (the single work queue: F fix, A add, R agent readiness).
   - Page Design (40017001:5504): previews and test screens, placed to the right of existing frames.
   - Hidden "_OLD ... text" nodes on those pages are the pre-2026-11-10 copies. Never read or edit them.
-- Tier 2 (one per app): a file that uses the base as a library. It has its own page AGENT RULES (PROJECT) with spec blocks RULES, FLOWS, MAPPING, FINDINGS and CHANGELOG, local Typography variables, 31 local text styles with base names, a local color collection, and a page App Components. Trial file: "Palm Reader", key q8vh5DZone2kxMhE1P5zBJ.
+- Tier 2 (one per app): a file that uses the base as a library. It has its own page AGENT RULES (PROJECT) with spec blocks RULES, FLOWS, MAPPING, FINDINGS, CHANGELOG and UX COPY, local Typography variables, 31 local text styles with base names, a local color collection, and a page App Components.
+  - New apps start from "Tier 2 Template", key snpHcKTKy0rzuFnC9h4570: a clean file with those pages, blocks and styles and neutral placeholder values. The designer duplicates it (file name menu > Duplicate) and sends the link of the copy. A file can't be duplicated from the API, and enabling the base library in a new file is also the designer's step.
+  - Trial file: "Palm Reader", key q8vh5DZone2kxMhE1P5zBJ. Its rules are Palm's own and stay there. Never copy rules from it into another file.
 - QR Scan hC7jBaSrNHXQBNu0J0JrQh: old source file, read only. Never edit, sync or map it.
 
 ## Read order (every session, before any change)
@@ -88,7 +90,7 @@ At session start in a tier 2 file, compare its stamp with the base RULES version
 
 If an app file has no page AGENT RULES (PROJECT), or that page has no RULES block, set it up before any other work. Claim the rules page first. The order is: template, then the file's own preferences on top, then the designer's OK.
 
-1. **Template.** Copy the block set and headings from the trial file Palm Reader: RULES, FLOWS, MAPPING, FINDINGS, CHANGELOG. Keep the read guide table, Claims, Changed since, and the rules that hold for any app (mix model as a draft, choosing a part, annotation layer, no dead ends, flow layout). Leave out everything Palm specific: its typeface, colors, parts, flows and findings. Give each copied rule the source "template from Palm Reader, date".
+1. **Template.** A new app is a duplicate of the Tier 2 Template (see Files). It already has the blocks RULES, FLOWS, MAPPING, FINDINGS, CHANGELOG and UX COPY as skeletons, with the read guide table, Claims, Changed since, the mix model draft and empty Settings. Replace "App name" and set the stamp. If an older app file has no rules page, copy the block set and headings from the Tier 2 Template, never from Palm Reader. Palm's rules (its typeface, colors, parts, flows, findings, Premium tone) stay in Palm Reader. Give each rule you take from the template the source "template, date".
 2. **Read the file's preferences.** Without editing anything, scan what the designer already made: typefaces and sizes in use, fills, corner radius, spacing, repeated layers and their names, page and flow layout, and the app's language. Report counts with node links, not impressions.
 3. **Tweak the template.** Write each preference as a pending line under the template rule it changes: "Pending: the file uses X (N nodes, link). Template says Y. Proposal: Z." A preference can change a template rule, never a base rule. Where the file breaks a base rule (raw values, detached parts), log it in FINDINGS instead.
 4. **Approve.** Show the designer the pending list. Approved lines become rules with the source "designer, date". Rejected lines are removed.
@@ -183,7 +185,7 @@ Then take a screenshot and look at it. Rewrite the HANDOFF block if it's older t
 
 **Start a new app file.** Prompt: "Start a new app called X on the base."
 - Read the base RULES and check the base version and this skill's version.
-- The file has no RULES block, so follow "Starting a tier 2 file with no rules": template, scan the file, pending lines, designer's OK, stamp.
+- Ask the designer to duplicate the Tier 2 Template and send the link. Then follow "Starting a tier 2 file with no rules": template, scan the file, pending lines, designer's OK, stamp.
 - Ask the designer for what the base can't decide: screen size, typeface, colors, and whether IAA is on. Never invent them.
 - Add the app's rules page, local Typography, text styles and color collection only through the approval loop.
 
@@ -198,6 +200,8 @@ For IAA/IAP apps, think about where ads and upsells fire: native ad between cont
 - This skill sits on top of the Figma plugin skills and does not repeat their API rules. Before any `use_figma` call, load `figma-use`. Also load `figma-generate-design` when you draw or change a screen, and `figma-generate-library` when you build a part, a variable collection or a style. Pass the names in `skillNames`.
 - A component description stores a straight apostrophe as `&#39;` and a straight double quote as `&quot;`. Write "Do not" instead of "Don't", and use curly quotes or none. Read a description back after writing it.
 - `figma.getNodeByIdAsync(id)` reaches nodes on other pages without switching the current page, so one call can read or set many parts.
+- Changing a FONT_FAMILY or weight variable can fail with "unloaded font Noto Sans ..." because the text styles briefly fall back. Load the named Noto fonts and the new fonts first, then set the values. Inter's semibold style is "Semi Bold" with a space.
+- `figma.spec.setContent` on a block that has a table can fail with "ambiguous table column correspondence". Write the block with a placeholder line, then put the table in with `editContent`.
 - Set `figma.skipInvisibleInstanceChildren = false` before touching hidden instance children.
 - A base icon slot keeps its 20 to 32 size when swapped, so use a separate Art swap property for large art.
 - The base "_Device" collection is not published because of its "_" prefix, so tier 2 files can't bind screen size (renaming it is waiting on the designer).

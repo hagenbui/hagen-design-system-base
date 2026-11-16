@@ -5,7 +5,7 @@ description: "Use for any work on the Hagen Design System Base Figma file or a t
 
 # Hagen Design System Base: how to work
 
-**Skill version 2.1 (2026-11-14).** Changes per version: README.md.
+**Skill version 2.2 (2026-11-16).** Changes per version: README.md.
 
 The goal is an agent-ready mobile design system for IAA/IAP (ad and in-app-purchase monetized) apps. An agent given a prompt should be able to build a full working app from components, tokens and rules only, without inventing layout.
 
@@ -207,6 +207,12 @@ Then take a screenshot and look at it. Rewrite the HANDOFF block if it's older t
 Use the mobile-app-ui-design skill for UX judgment: hierarchy, thumb zone, empty, loading, error and success states, the peak-end moment, and industry conventions. Its numbers (spacing, padding, sizes, widths) never override the base rules.
 
 For IAA/IAP apps, think about where ads and upsells fire: native ad between content blocks, banner at the bottom of content and result screens, rewarded "AD" marker inside the button, paywall, limit-reached upsell, rating prompt. The base has no ad slot, Card or Accordion parts yet (roadmap A2, A3, A11, A25). Propose them instead of improvising in the base.
+
+## Images and art
+
+- Always make images (illustrations, icons as art, photos, backgrounds, style tile art) with the OpenAI image generation connector. Write the prompt in English.
+- If that connector isn't available in this session, fails, or can't make what's needed (size, transparency, format), stop and ask the designer first. Say why it can't be used and which other way you would use (for example Figma's generate_image, a vector illustration, or a placeholder). Never switch to another image tool on your own.
+- Until art is approved, use the Illustration text box (see New app process, stage 4).
 
 ## Figma gotchas
 

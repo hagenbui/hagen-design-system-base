@@ -19,6 +19,7 @@ This is a private repo, so the Mac running the command must be signed in to GitH
 
 Minor (1.1 to 1.2): wording and process. Major (1.x to 2.0): the page format in the Figma files changes. Each app file's RULES block stamps the skill version it was last checked against.
 
+- **2.2 (2026-11-16)**: new section "Images and art": always make images with the OpenAI image generation connector, and ask the designer before using any other way when it can't be used. No format change in the files.
 - **2.1 (2026-11-14)**: the Tier 2 Template has 15 starter wraps on App Components (46 variants), each holding a base part bound to the local App Color and text styles, listed in MAPPING with a Code column. "New app process" stage 5 starts with them. New gotcha for building wraps. No format change in the files. An app file made before this has no starter wraps: run the same wrap build in it, or duplicate the template again.
 - **2.0 (2026-11-14)**: new section "New app process" (context, sitemap, visual style, wireframe, build, with the designer's OK after each stage).
   - Format change in the files: tier 2 files get two more pages, AGENT BRIEF (PROJECT) with the spec block BRIEF and AGENT SITEMAP (PROJECT) with the spec block SITEMAP, read when needed. Both are listed in the RULES "What to read, and when" table and in the PAGES line.

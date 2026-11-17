@@ -5,7 +5,7 @@ description: "Use for any work on the Hagen Design System Base Figma file or a t
 
 # Hagen Design System Base: how to work
 
-**Skill version 2.4 (2026-11-17).** Changes per version: README.md.
+**Skill version 2.5 (2026-11-17).** Changes per version: README.md.
 
 The goal is an agent-ready mobile design system for IAA/IAP (ad and in-app-purchase monetized) apps. An agent given a prompt should be able to build a full working app from components, tokens and rules only, without inventing layout.
 
@@ -28,9 +28,9 @@ The rules live IN the Figma files. This skill is the process. Where this skill a
 ## Read order (every session, before any change)
 
 Always read (base):
-1. PROGRESS block: HANDOFF first.
+1. PROGRESS block: the HANDOFF section only (read with offset and maxLines, not the whole block).
 2. RULES block: in full, do not skim. Its "What to read, and when" table says which other blocks a task needs.
-3. LOCKS block: before editing any base part.
+3. LOCKS block: before editing any base part. Find the rows you need, not the whole table.
 
 Read again when your context was summarized or cut: before the next write, re-read RULES in full and HANDOFF, and re-find nodes by page and name. A summary is not the rules.
 
@@ -47,6 +47,19 @@ Rules page format (keeps every session's reading small):
 - A rule is a few lines, then "Why:" with the reason in one sentence, then its source (designer, date). The reason is what an agent works from when it hits a case the rule doesn't cover, so never drop it. If the designer gave no reason, ask. Point to variables instead of copying values.
 - To log, read only the top of CHANGELOG and add a line under today's date.
 
+## Reference files (read only when the task needs them)
+
+These sit next to this file. They hold steps you need for some tasks only, so a session reads less.
+
+| File | Read when |
+|---|---|
+| references/new-app.md | starting a new app, a tier 2 file with no rules, or any stage of the new app process |
+| references/wraps.md | building, extending, forking or describing a part, or changing a font variable |
+| references/flows.md | drawing, moving or linking screens on a flows page |
+| references/parallel-agents.md | the designer wants two agents on one file |
+
+If you can't open a reference file, say so and ask. Never guess its steps.
+
 ## Working alongside other sessions
 
 The in-file rules share knowledge, not coordination. Another agent may be editing the same file right now.
@@ -57,9 +70,7 @@ The in-file rules share knowledge, not coordination. Another agent may be editin
 - When you change a rule, log it so others see it: base, a line under "Rules versions" in CHANGELOG; tier 2, a line in "Changed since" on its RULES block. Before each done check, read those lines for changes by other sessions (screen sizes, renamed pages, converted nodes).
 - Splitting flow sections between sessions is safe. Two sessions changing shared parts or rules is not: tell the designer and stop.
 
-Two ways to run two agents on one file:
-- **Relay (one after another, safest).** Agent A claims, works, runs the done check, rewrites HANDOFF (what changed, node names, open items, what B should do next) and releases its claim. Agent B starts with the read order, so it picks up from HANDOFF. Only one claim line exists at a time.
-- **Parallel (same time).** Before either starts, the designer splits the work by area: for example A owns flow sections 1 to 6, B owns 7 to 14. Shared parts and the rules page get one owner (usually A), and the other agent writes requests under that owner's claim instead of editing. Each agent logs its changelog lines in its own block, and the owner merges them at the end. If an agent needs something outside its claim, it stops and asks, and doesn't edit.
+To run two agents on one file (relay or parallel), read references/parallel-agents.md.
 
 ## Approval loop (never skip)
 
@@ -90,29 +101,7 @@ At session start in a tier 2 file, compare its stamp with the base RULES version
 - Base rules newer: read the base CHANGELOG "Rules versions" from the stamped version up, list the app parts it affects, tell the designer, and update the affected parts with approval. Then update the stamp.
 - Skill newer: apply the format changes listed in README.md for the versions in between (for example the block split in 1.1), then update the stamp.
 - Stamp missing: add it with today's versions after reading both, and say so.
-- No RULES block at all: follow "Starting a tier 2 file with no rules" first.
-
-## Starting a tier 2 file with no rules
-
-If an app file has no page AGENT RULES (PROJECT), or that page has no RULES block, set it up before any other work. Claim the rules page first. The order is: template, then the file's own preferences on top, then the designer's OK.
-
-1. **Template.** A new app is a duplicate of the Tier 2 Template (see Files). It already has the blocks RULES, FLOWS, MAPPING, FINDINGS, CHANGELOG and UX COPY as skeletons, with the read guide table, Claims, Changed since, the mix model draft and empty Settings. Replace "App name" and set the stamp. If an older app file has no rules page, copy the block set and headings from the Tier 2 Template, never from Palm Reader. Palm's rules (its typeface, colors, parts, flows, findings, Premium tone) stay in Palm Reader. Give each rule you take from the template the source "template, date".
-2. **Read the file's preferences.** Without editing anything, scan what the designer already made: typefaces and sizes in use, fills, corner radius, spacing, repeated layers and their names, page and flow layout, and the app's language. Report counts with node links, not impressions.
-3. **Tweak the template.** Write each preference as a pending line under the template rule it changes: "Pending: the file uses X (N nodes, link). Template says Y. Proposal: Z." A preference can change a template rule, never a base rule. Where the file breaks a base rule (raw values, detached parts), log it in FINDINGS instead.
-4. **Approve.** Show the designer the pending list. Approved lines become rules with the source "designer, date". Rejected lines are removed.
-5. **Finish.** Add the "Built on" stamp and a CHANGELOG line. Local Typography variables, text styles, the color collection and page App Components follow the approval loop as usual.
-
-## New app process
-
-Five stages, in this order. Each one ends with the designer's OK, and the next one does not start before it. Record each stage in the file. If a stage needs facts you don't have, ask. Never invent the PO's knowledge.
-
-1. **Context.** Read what the designer and the PO give you (documents, links, Figma, Drive). Write the page AGENT BRIEF: goal, audience, platforms and languages, features, monetization, references, constraints, open questions. Mark every unknown "to confirm". Gate: the brief is confirmed.
-2. **Sitemap.** Write the tree on the page AGENT SITEMAP: feature, then screen, then state, numbered the way FLOWS will be. A visual tree below it or in FigJam is optional, and the outline stays the source. Gate: the sitemap is approved.
-3. **Visual style.** Draft the typeface, look and style (RULES 2.1, 2.2, 2.4) and fill the App Color and Typography values. Show one style tile on page Design: a sample screen next to the tokens. Gate: the style is approved, and only then written as rules.
-4. **Wireframe.** Draw the sitemap screens in grayscale from base parts only, with the Illustration text box for art and Ad Slot for ads. The base is already plain, so it is the wireframe kit. Then write the parts needed list in MAPPING: base part used, missing (a FINDINGS T item), or custom (wrap, fork, local). Gate: the parts list is approved.
-5. **Build.** Start with the template's starter wraps (rename App to the app name; they follow the App Color and Typography values from stage 3), then base instances, then other custom parts per the mix model (wrap first), then polish: done check, reapply scan, states, copy, art, both screen sizes. Gate: each screen and each custom part.
-
-Do not draw screens for stage 4 or 5 before stage 3 is approved. The Tier 2 Template already has the BRIEF and SITEMAP pages, so stages 1 and 2 start by filling them.
+- No RULES block at all: follow "Starting a tier 2 file with no rules" in references/new-app.md first.
 
 ## Core principle: plain base, tier 2 flavor
 
@@ -148,23 +137,11 @@ Button groups:
 
 ## Describing a part
 
-Every public base part and every app part has a description in this form (base roadmap F1, R1). Agents find parts through search and read this text, so write only facts the part really has.
-- Use for: the job it does.
-- Do not use for: each wrong job, with the part to use instead.
-- Pairs with: the parts it sits with or inside, and where (bottom bar, header, List Card).
-- Properties: only those that exist, with defaults. No hypothetical variants.
-- States: the ones the part has.
-- Invalid combinations: what must not be set together, written as the problem plus the fix.
-- Rule refs and the date last reviewed.
+Every public base part and every app part has a description in a fixed form (Use for, Do not use for, Pairs with, Properties, States, Invalid combinations, rule refs). Before you write or change one, read references/wraps.md.
 
-App parts also start with "Wraps: ...", "Fork of: ..." or "Local, no base match" (mix model). Set a description only on a component or component set, never on an instance.
+## Building rules (the RULES page is the source)
 
-## Building rules (summary, the RULES page is the source)
-
-- No raw numbers. Every padding, gap, radius and stroke binds to a Dimension variable. Screen size from _Device is the only exception.
-- Layout ladder 24 > 12 > 8 > 4 > 2: Content has padding 0 and gap 0. A Section has screen-padding-x 16 and section-padding-y 12. Heading to container is group-gap 12. A card has card-padding 16, gap group-gap, radius-surface, and fill bg-secondary. Rows use stack-gap 8. Text pairs use text-gap-tight / text-gap / text-gap-loose (rule 4.1).
-- Screen shell: Status Bar > Header > Content > bottom bar > Nav. Zones are full width, height hugs content, and nothing is clipped. Check every screen at both sizes in the file's screen size rule (base 2.1, the _Device collection).
-- Text uses only existing local text styles from the 7.11 pairing table. Never set fontName, fontSize or letterSpacing directly. Never create new style variants (rule 7.8).
+You read the RULES block in full, so its numbers are not copied here (layout ladder, screen shell, text styles, components). The ones most often broken: no raw numbers, text only from local text styles (7.11, 7.8). Also:
 - Use base components and the preset use cases (Dialog & Modal "Use cases", Bottom Sheet Overlay, Dialog Overlay). Never detach, and never use sub-components or modules.
 - Naming: private parts start with "_". Property names are plain words with no "?". Use Material 3 / HIG terms.
 - The annotation layer follows the same rules: jump tags, case labels, notes and preview boards. Build each one once as a part with styles and tokens, and instance it. Never build tags or labels from raw text in a script.
@@ -173,17 +150,7 @@ App parts also start with "Wraps: ...", "Fork of: ..." or "Local, no base match"
 
 ## Flows page layout
 
-Reference file: Cat Translate, key sTy5BEZfV9mWWZeKBHRdQF, page "Update 29/10/2025" (node 11892-137229). Read it when a layout case isn't covered below. If the file's FLOWS block says otherwise, the block wins.
-
-- One section per feature, short name, stacked in one left-aligned column, all the same width. Sections are dark so screens stand out (the reference uses #444444; in our files use the annotation parts and tokens, and propose one if it's missing).
-- The happy path runs left to right in one row. A feature with several modes or entries has a vertical spine from the entry screen down the left side, with one row per mode.
-- Cases (errors, empty states, alternative results, variants like Dog vs Cat) go in darker sub-sections named by the case, right after or under the step they branch from, with their screens stacked vertically so each case stays one column under its step.
-- Small state variants (keyboard open, typing) sit directly under their base screen, in the same column.
-- Arrows are one accent color with a short label naming the trigger or condition ("Record", "Pass", "Close"). Only straight arrows (the API can't set bend points): horizontal between neighbors at the same y, and vertical drops from a step's bottom center into the case below. Every other link becomes a pair of jump tags in the same color ("→ 2.1c · Skip" / "← 1.6 · Skip"). Arrows never overlap screens or other arrows.
-- Hubs (Home, Settings, lists): hub top left, each destination on its own row below, with spine arrows from the hub's bottom edge turning right into each row. Spread the start points (rightmost for the top row) so spines never touch. Never chain them as if each went deeper.
-- Name screens "number Flow => State". Notes are stickies next to the screen or case they explain, in Vietnamese, never one big note per section.
-- Optional action callout: a small frame showing the tapped element, placed by the arrow it triggers.
-- Later releases go on their own page and hold only the sections that change. Shared parts get a switch that is off by default.
+Read references/flows.md before you draw, move or link screens on a flows page.
 
 ## Done check (run after every batch, and before saying anything is done)
 
@@ -203,9 +170,9 @@ Run the base text node "DONE CHECK SCRIPT" (page AGENT RULES, base rule 10.1) ex
 - screen sizes against the current rule (re-read it, another session may have changed it)
 - every wrap you touched covers its base part's full variant set, except what its description lists under "Left out on purpose" (compare the base set's variant properties with the wrap's)
 
-Then take a screenshot and look at it. A screenshot shows resolved variables, so it can't show wrong bindings or fallback colors: the counts come first, the screenshot second. Rewrite the HANDOFF block if it's older than the newest changelog line.
+Report the check compactly: only counts that aren't zero, with up to 10 node ids each, never full node dumps. Then take a screenshot of the screens you touched, at a small size, and look at it. A screenshot shows resolved variables, so it can't show wrong bindings or fallback colors: the counts come first, the screenshot second. Rewrite the HANDOFF block if it's older than the newest changelog line.
 
-## Examples
+## Example
 
 **Build a screen.** Prompt: "Add a Result screen with a share action and two follow-up actions."
 - Read order, then claim the flow section you own.
@@ -213,12 +180,6 @@ Then take a screenshot and look at it. A screenshot shows resolved variables, so
 - Build only from the app's wraps and base parts, bound to tokens. Share is a header icon button. The two follow-ups are stacked full width, Primary first, then Ghost (Choosing a part, Button groups).
 - Every action ends in an arrow or jump tag. Notes are in Vietnamese.
 - Run the done check, paste its counts, take a screenshot, log a CHANGELOG line, release the claim.
-
-**Start a new app file.** Prompt: "Start a new app called X on the base."
-- Read the base RULES and check the base version and this skill's version.
-- Ask the designer to duplicate the Tier 2 Template and send the link. Then follow "Starting a tier 2 file with no rules": template, scan the file, pending lines, designer's OK, stamp.
-- Ask the designer for what the base can't decide: screen size, typeface, colors, and whether IAA is on. Never invent them.
-- Add the app's rules page, local Typography, text styles and color collection only through the approval loop.
 
 ## Design judgment
 
@@ -230,21 +191,15 @@ For IAA/IAP apps, think about where ads and upsells fire: native ad between cont
 
 - Always make images (illustrations, icons as art, photos, backgrounds, style tile art) with the OpenAI image generation connector. Write the prompt in English.
 - If that connector isn't available in this session, fails, or can't make what's needed (size, transparency, format), stop and ask the designer first. Say why it can't be used and which other way you would use (for example Figma's generate_image, a vector illustration, or a placeholder). Never switch to another image tool on your own.
-- Until art is approved, use the Illustration text box (see New app process, stage 4).
+- Until art is approved, use the Illustration text box (references/new-app.md, stage 4).
 
 ## Figma gotchas
 
-- This skill sits on top of the Figma plugin skills and does not repeat their API rules. Before any `use_figma` call, load `figma-use`. Also load `figma-generate-design` when you draw or change a screen, and `figma-generate-library` when you build a part, a variable collection or a style. Pass the names in `skillNames`.
-- A component description stores a straight apostrophe as `&#39;` and a straight double quote as `&quot;`. Write "Do not" instead of "Don't", and use curly quotes or none. Read a description back after writing it.
+- This skill sits on top of the Figma plugin skills and does not repeat their API rules. Load `figma-use` once per session, before the first `use_figma` call. Load `figma-generate-design` once when you first draw or change a screen, and `figma-generate-library` only when you build a part, a variable collection or a style. Don't load them again in the same session.
+- Gotchas for building and extending parts are in references/wraps.md, and adding a spec block is in references/new-app.md.
 - `figma.getNodeByIdAsync(id)` reaches nodes on other pages without switching the current page, so one call can read or set many parts.
-- Changing a FONT_FAMILY or weight variable can fail with "unloaded font Noto Sans ..." because the text styles briefly fall back. Load the named Noto fonts and the new fonts first, then set the values. Inter's semibold style is "Semi Bold" with a space.
-- Building a wrap: import the base part by key (`importComponentSetByKeyAsync`), put an instance inside a new component, set `isExposedInstance = true` on it so its properties stay editable, then rebind its fills and strokes from base Semantic variables to local App Color variables, and its text to the local text style of the same name. Restyling can make some nested node ids disappear ("node does not exist"): wrap each node in try and catch, and run a second pass on overlays. A base part with no properties (for example Floating Close Button) can't be exposed: wrap isExposedInstance in try and catch and say so in MAPPING.
-- Extending a wrap to its full set: list the base set's variants, then for each missing one clone the closest styled wrap variant (same style and state), call swapComponent on its "Base (styling only)" instance to the target base variant, put back the fills and strokes saved before the swap, copy the padding and itemSpacing bindings from the new base main component (old size overrides survive a swap), and set text to the local style for the new size. Then sweep the whole set: every remote color variable to its App Color slot, every remote text style to the local one of the same name, and report what is left. Icons in a new size lose their color override because the icon node changes. A wrap that gains a property (Size, Label, Icon) needs every existing variant renamed to include it first; screen instances keep working.
-- After a set grows: lay its variants out in a grid (rows by style, columns by size and state), resize the set, widen its section, shift the nodes to its right, and check top-level overlaps. A screenshot taken inside the same script can show variable colors as black; check with get_screenshot before fixing anything.
-- To add a spec block (a new BRIEF or SITEMAP page), call `whoami` first and check `specs_enabled`, create the page, switch to it, then `figma.spec.createOnCanvasAsync({ title, content })`. Give it a non-empty title: the title becomes the block name you find it by.
 - `figma.spec.setContent` on a block that has a table can fail with "ambiguous table column correspondence". Write the block with a placeholder line, then put the table in with `editContent`.
 - Set `figma.skipInvisibleInstanceChildren = false` before touching hidden instance children.
-- A base icon slot keeps its 20 to 32 size when swapped, so use a separate Art swap property for large art.
 - The base "_Device" collection is not published because of its "_" prefix, so tier 2 files can't bind screen size (renaming it is waiting on the designer).
 - The DONE CHECK SCRIPT is still a text node in Inter Regular: load the font before editing it, edit by exact string replace, and re-read afterward.
 - When swapping an instance to another variant or part, call `resetOverrides()` first, then set only what you need. Old fills and hidden icons survive a swap otherwise.

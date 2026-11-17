@@ -5,7 +5,7 @@ description: "Use for any work on the Hagen Design System Base Figma file or a t
 
 # Hagen Design System Base: how to work
 
-**Skill version 2.6 (2026-11-17).** Changes per version: README.md.
+**Skill version 2.7 (2026-11-17).** Changes per version: README.md.
 
 The goal is an agent-ready mobile design system for IAA/IAP (ad and in-app-purchase monetized) apps. An agent given a prompt should be able to build a full working app from components, tokens and rules only, without inventing layout.
 
@@ -200,7 +200,7 @@ For IAA/IAP apps, think about where ads and upsells fire: native ad between cont
 - `figma.getNodeByIdAsync(id)` reaches nodes on other pages without switching the current page, so one call can read or set many parts.
 - `figma.spec.setContent` on a block that has a table can fail with "ambiguous table column correspondence". Write the block with a placeholder line, then put the table in with `editContent`.
 - Set `figma.skipInvisibleInstanceChildren = false` before touching hidden instance children.
-- The base "_Device" collection is not published because of its "_" prefix, so tier 2 files can't bind screen size (renaming it is waiting on the designer).
+- The base screen size collection is "Device" (renamed from "_Device" on 2026-11-17) and is published, so tier 2 screens can bind screen-width and screen-height to it. Older notes that say "_Device" mean the same collection.
 - The DONE CHECK SCRIPT is still a text node in Inter Regular: load the font before editing it, edit by exact string replace, and re-read afterward.
 - When swapping an instance to another variant or part, call `resetOverrides()` first, then set only what you need. Old fills and hidden icons survive a swap otherwise.
 - A paint bound to a color variable still stores a raw color, the fallback. Never write black or a placeholder there. Set it to the variable's value for that node: `const { r, g, b } = variable.resolveForConsumer(node).value`, then bind. A wrong fallback looks right in screenshots and only shows when the file is opened or the binding breaks.

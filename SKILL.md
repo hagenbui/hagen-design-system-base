@@ -5,7 +5,7 @@ description: "Use for any work on the Hagen Design System Base Figma file or a t
 
 # Hagen Design System Base: how to work
 
-**Skill version 2.3 (2026-11-17).** Changes per version: README.md.
+**Skill version 2.4 (2026-11-17).** Changes per version: README.md.
 
 The goal is an agent-ready mobile design system for IAA/IAP (ad and in-app-purchase monetized) apps. An agent given a prompt should be able to build a full working app from components, tokens and rules only, without inventing layout.
 
@@ -31,6 +31,8 @@ Always read (base):
 1. PROGRESS block: HANDOFF first.
 2. RULES block: in full, do not skim. Its "What to read, and when" table says which other blocks a task needs.
 3. LOCKS block: before editing any base part.
+
+Read again when your context was summarized or cut: before the next write, re-read RULES in full and HANDOFF, and re-find nodes by page and name. A summary is not the rules.
 
 Read only when needed (base): ROADMAP (choosing work, updating an item), AUDIT (QR Scan audit, P/D/Q review), CHANGELOG (why or when; to log, its first 15 lines).
 
@@ -80,8 +82,8 @@ Log findings that are waiting for review in AGENT PROGRESS (P = pattern, D = def
 ## Versioning
 
 Three versions, each written where an agent sees it on first read:
-- **Base rules version** (v0.4.8 as of 2026-11-10): top of the base RULES block. Never bump it. The designer decides when. After an approved change, add a dated line under "Rules versions" in the base CHANGELOG, newest first.
-- **Skill version** (1.1): top of this file, with changes per version in README.md. Bump it when this skill changes: minor (1.1 to 1.2) for wording and process, major (1.x to 2.0) when the page format in the files changes. Also update "Page format: skill x" on the base RULES block.
+- **Base rules version**: top of the base RULES block. Read it there, never from notes or this skill. Never bump it. The designer decides when. After an approved change, add a dated line under "Rules versions" in the base CHANGELOG, newest first.
+- **Skill version**: top of this file, with changes per version in README.md. Bump it when this skill changes: minor (1.1 to 1.2) for wording and process, major (1.x to 2.0) when the page format in the files changes. Also update "Page format: skill x" on the base RULES block.
 - **Tier 2 stamp**: a "Built on: base rules vX · skill Y · checked date" line under the title of each app's RULES block.
 
 At session start in a tier 2 file, compare its stamp with the base RULES version and this skill's version:
@@ -117,7 +119,7 @@ Do not draw screens for stage 4 or 5 before stage 3 is approved. The Tier 2 Temp
 - The base stays plain and app-agnostic. Its Inter typeface and its colors are placeholders.
 - Each app's look (typeface, colors, shape, effects) lives only in its tier 2 file. Never put app themes or app modes into the base.
 - The designer is on Figma Pro, so extended collections are not available. Base parts cannot pick up tier 2 variables on their own, so the flavor comes from tier 2 wraps.
-- Mix model (tier 2 rule 1.1, draft until the designer approves): WRAP a base instance first, and restyle it with overrides only. FORK only when the structure must change, and log the reason. Make a part LOCAL only when the base has no match, and log it as a base candidate. Name app parts <App>/<Part> and start each description with "Wraps: base X", "Fork of: base X, because ..." or "Local, no base match".
+- Mix model (tier 2 rule 1.1; its status is per app, so read rule 1.1 in the file's RULES block, and if it is still a draft there, follow it and say so): WRAP a base instance first, and restyle it with overrides only. FORK only when the structure must change, and log the reason. Make a part LOCAL only when the base has no match, and log it as a base candidate. Name app parts <App>/<Part> and start each description with "Wraps: base X", "Fork of: base X, because ..." or "Local, no base match".
 - Style each wrap once: local text styles and the app color collection. Screens use only the wraps and need no per-screen overrides. When a state changes color (like a selected tab), give the wrap its own variants.
 - FULL SET: a wrap mirrors every variant of its base part (every Style or Emphasis, Size, State and option such as Icon, Selected, Delete, Label, Scrollable), each one styled, so the designer can switch to any option inside the app look. Never wrap only the variants the current screens use. The only gaps are variants an app rule bans (for example Shadow On when the app has no shadows, Hover on touch apps); the description ends with "Left out on purpose: ... (reason)" or "Left out on purpose: none." A wrap may draw a state itself (Pressed by a lip) instead of using the base state; say so in the description. Destructive base parts become extra styles of the same wrap (Destructive, Destructive Secondary, Destructive Ghost; Danger on icon buttons).
 - Base parts the app does not use are not wrapped ahead of time: an unstyled App/ part looks app-ready to agents and is drift. Wrap a part the first time a screen needs it, as a full set, styled in the same pass.
@@ -129,7 +131,7 @@ Do not draw screens for stage 4 or 5 before stage 3 is approved. The Tier 2 Temp
 
 ## Choosing a part (job first, look second)
 
-Pick a part by the job it does, never by which one looks closest. If the job isn't below or in the file's rules, ask. Until the base has its own table (pending approval), use this:
+Pick a part by the job it does, never by which one looks closest. If the job isn't below or in the file's rules, ask. If the base RULES block has a table for choosing a part, it wins over this list. Otherwise use this:
 - Navigate into a screen, a settings item, a saved record, a long single-choice list in a form: list row.
 - Do something: button. Secondary action: ghost or secondary button, never a list row.
 - Toggle: switch or checkbox. Never a row with nothing on the right.
@@ -171,11 +173,16 @@ App parts also start with "Wraps: ...", "Fork of: ..." or "Local, no base match"
 
 ## Flows page layout
 
-- One section per feature, stacked in one left-aligned column. The happy path runs left to right in one row.
-- Cases (errors, empty states, alternative results) go in darker sub-sections under the step they branch from, with their screens stacked vertically.
-- Only straight arrows (the API can't set bend points). Use horizontal arrows between neighbors and vertical drops into the case below. Every other link becomes a pair of jump tags ("→ 2.1c · Skip" / "← 1.6 · Skip"). Arrows never overlap screens or other arrows.
-- Hubs (Home, Settings, lists): put each destination on its own row below the hub, with spine arrows from the hub's bottom edge. Never chain them as if each went deeper.
-- Name screens "number Flow => State". Notes sit next to the screen they explain.
+Reference file: Cat Translate, key sTy5BEZfV9mWWZeKBHRdQF, page "Update 29/10/2025" (node 11892-137229). Read it when a layout case isn't covered below. If the file's FLOWS block says otherwise, the block wins.
+
+- One section per feature, short name, stacked in one left-aligned column, all the same width. Sections are dark so screens stand out (the reference uses #444444; in our files use the annotation parts and tokens, and propose one if it's missing).
+- The happy path runs left to right in one row. A feature with several modes or entries has a vertical spine from the entry screen down the left side, with one row per mode.
+- Cases (errors, empty states, alternative results, variants like Dog vs Cat) go in darker sub-sections named by the case, right after or under the step they branch from, with their screens stacked vertically so each case stays one column under its step.
+- Small state variants (keyboard open, typing) sit directly under their base screen, in the same column.
+- Arrows are one accent color with a short label naming the trigger or condition ("Record", "Pass", "Close"). Only straight arrows (the API can't set bend points): horizontal between neighbors at the same y, and vertical drops from a step's bottom center into the case below. Every other link becomes a pair of jump tags in the same color ("→ 2.1c · Skip" / "← 1.6 · Skip"). Arrows never overlap screens or other arrows.
+- Hubs (Home, Settings, lists): hub top left, each destination on its own row below, with spine arrows from the hub's bottom edge turning right into each row. Spread the start points (rightmost for the top row) so spines never touch. Never chain them as if each went deeper.
+- Name screens "number Flow => State". Notes are stickies next to the screen or case they explain, in Vietnamese, never one big note per section.
+- Optional action callout: a small frame showing the tapped element, placed by the arrow it triggers.
 - Later releases go on their own page and hold only the sections that change. Shared parts get a switch that is off by default.
 
 ## Done check (run after every batch, and before saying anything is done)

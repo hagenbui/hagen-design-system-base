@@ -5,7 +5,7 @@ description: "Use for any work on the Hagen Design System Base Figma file or a t
 
 # Hagen Design System Base: how to work
 
-**Skill version 2.5 (2026-11-17).** Changes per version: README.md.
+**Skill version 2.6 (2026-11-17).** Changes per version: README.md.
 
 The goal is an agent-ready mobile design system for IAA/IAP (ad and in-app-purchase monetized) apps. An agent given a prompt should be able to build a full working app from components, tokens and rules only, without inventing layout.
 
@@ -128,9 +128,9 @@ Pick a part by the job it does, never by which one looks closest. If the job isn
 - Two big choices: picture cards. Short picks and survey answers: option cards. Suggestions: chips.
 - Share on a result: an icon button in the header.
 
-Button groups:
+Button groups (a button rule in the base or app RULES block wins over this list):
 - One action on an empty or error screen: Primary, hugging its label.
-- Two or more actions: stacked full width, the main action first.
+- Two or more actions: stacked, the main action first. Full width on most screens. On empty states, follow the base empty state rule (6.5) for their width.
 - Destructive is the main action: Destructive + Secondary.
 - Primary plus a destructive choice plus cancel: Primary, Destructive Secondary, Ghost. One red button per group.
 - A row that opens a delete confirm stays a row. The red appears on the confirm button.

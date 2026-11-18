@@ -5,7 +5,7 @@ description: "Use for any work on the Hagen Design System Base Figma file or a t
 
 # Hagen Design System Base: how to work
 
-**Skill version 2.7 (2026-11-17).** Changes per version: README.md.
+**Skill version 2.8 (2026-11-18).** Changes per version: README.md.
 
 The goal is an agent-ready mobile design system for IAA/IAP (ad and in-app-purchase monetized) apps. An agent given a prompt should be able to build a full working app from components, tokens and rules only, without inventing layout.
 
@@ -19,7 +19,7 @@ The rules live IN the Figma files. This skill is the process. Where this skill a
   - Page AGENT ROADMAP: spec blocks LOCKS (who edits which base part, rule 1.1) and ROADMAP (the single work queue: F fix, A add, R agent readiness).
   - Page Design (40017001:5504): previews and test screens, placed to the right of existing frames.
   - Hidden "_OLD ... text" nodes on those pages are the pre-2026-11-10 copies. Never read or edit them.
-- Tier 2 (one per app): a file that uses the base as a library. It has its own page AGENT RULES (PROJECT) with spec blocks RULES, FLOWS, MAPPING, FINDINGS, CHANGELOG and UX COPY, a page AGENT BRIEF (PROJECT) with the block BRIEF, a page AGENT SITEMAP (PROJECT) with the block SITEMAP, local Typography variables, 31 local text styles with base names, a local color collection, and a page App Components.
+- Tier 2 (one per app): a file that uses the base as a library. It has its own page AGENT RULES (PROJECT) with spec blocks RULES, FLOWS, MAPPING, FINDINGS, SKILL FINDINGS, CHANGELOG and UX COPY, a page AGENT BRIEF (PROJECT) with the block BRIEF, a page AGENT SITEMAP (PROJECT) with the block SITEMAP, local Typography variables, 31 local text styles with base names, a local color collection, and a page App Components.
   - New apps start from "Tier 2 Template", key snpHcKTKy0rzuFnC9h4570: a clean file with those pages, blocks and styles and neutral placeholder values. The designer duplicates it (file name menu > Duplicate) and sends the link of the copy. A file can't be duplicated from the API, and enabling the base library in a new file is also the designer's step.
   - The template's page App Components has 15 starter wraps: App/Button, Header, ListItem, ListCard, InputField, BottomNavigation, BottomNavTab, DialogOverlay, BottomSheetOverlay, Badge, Switch, CheckBox, Radio, EmptyState and PageIndicator. Each holds a base part bound to the local App Color and text styles, so an app restyles them by changing variables. Rename App to the app's short name. They are listed in MAPPING. Limits: Switch, Check Box and Radio keep their inner base colors (finding T2), and the dim of the overlays keeps the base scrim color. Starter wraps follow the full-set rule (Core principle): when an app starts, check each one against its base part and add the missing variants.
   - Trial file: "Palm Reader", key q8vh5DZone2kxMhE1P5zBJ. Its rules are Palm's own and stay there. Never copy rules from it into another file.
@@ -36,13 +36,13 @@ Read again when your context was summarized or cut: before the next write, re-re
 
 Read only when needed (base): ROADMAP (choosing work, updating an item), AUDIT (QR Scan audit, P/D/Q review), CHANGELOG (why or when; to log, its first 15 lines).
 
-In a tier 2 file, also read its RULES block in full and check its "Built on" stamp (see Versioning). Open FLOWS, MAPPING, FINDINGS or CHANGELOG only when its table says the task needs them. BRIEF and SITEMAP are separate pages, read when needed: BRIEF when you start the app, choose a feature or are asked why a screen exists, SITEMAP when you add, remove or link screens.
+In a tier 2 file, also read its RULES block in full and check its "Built on" stamp (see Versioning). Open FLOWS, MAPPING, FINDINGS, SKILL FINDINGS or CHANGELOG only when its table says the task needs them. BRIEF and SITEMAP are separate pages, read when needed: BRIEF when you start the app, choose a feature or are asked why a screen exists, SITEMAP when you add, remove or link screens.
 
 All agent pages are spec blocks. Find one by page and name with `page.findOne(n=>n.type==='SPEC_BLOCK'&&n.name==='RULES')`, read it with `figma.spec.getContent({specNodeId, offset, maxLines})`, and edit with `figma.spec.editContent` (exact, unique matches). Never `setContent` a block that has content unless the designer asked for a rewrite. Inside tables, write `_`, `*` and `[` plainly: escapes show up as visible backslashes there.
 
 Rules page format (keeps every session's reading small):
 - One always-read block (RULES): read guide, Claims, Changed since, settings, pattern rules, pending. Aim for 10,000 characters or less.
-- Task blocks, read only when needed: FLOWS (flow layout, versions), MAPPING (part table), FINDINGS (base gaps), CHANGELOG (history).
+- Task blocks, read only when needed: FLOWS (flow layout, versions), MAPPING (part table), FINDINGS (base gaps), SKILL FINDINGS (lessons about how agents work), CHANGELOG (history).
 - Use `##` sections and one `###` heading per rule, so a part of a block can be found and read alone.
 - A rule is a few lines, then "Why:" with the reason in one sentence, then its source (designer, date). The reason is what an agent works from when it hits a case the rule doesn't cover, so never drop it. If the designer gave no reason, ask. Point to variables instead of copying values.
 - To log, read only the top of CHANGELOG and add a line under today's date.
@@ -57,6 +57,7 @@ These sit next to this file. They hold steps you need for some tasks only, so a 
 | references/wraps.md | building, extending, forking or describing a part, or changing a font variable |
 | references/flows.md | drawing, moving or linking screens on a flows page |
 | references/parallel-agents.md | the designer wants two agents on one file |
+| references/skill-findings.md | writing, merging or reviewing a skill finding |
 
 If you can't open a reference file, say so and ask. Never guess its steps.
 
@@ -90,6 +91,18 @@ Never do these without approval:
 
 Log findings that are waiting for review in AGENT PROGRESS (P = pattern, D = defect, Q = question, each with a node link and the base token it maps to). Gaps that a tier 2 app finds go in that file's findings (T items) and should get a roadmap id in the base.
 
+## Skill findings (lessons inbox)
+
+Each tier 2 file has a block SKILL FINDINGS on AGENT RULES (PROJECT): evidence about how agents work, kept for the designer to review. FINDINGS stays for base part gaps.
+- Collect a finding when the designer corrects you, you repeat a mistake, an instruction misled you or was missing, a tool behaved in a way this skill doesn't warn about, a check was missing, or a base/app mismatch teaches a workflow lesson. One app's visual preference is an app rule, not a finding.
+- Write only during write work you are authorized for, into an existing block. If the cause matches an open item, add an "Also seen" line to it instead of a new id.
+- No block in the file: propose the finding in chat. Creating the block or editing RULES is rules maintenance and needs its own OK. An OK to build a screen is not one.
+- Read-only task: propose findings in chat and write nothing to Figma. In base work, propose lessons in chat too.
+- A designer correction still becomes an app rule through the Approval loop. The finding records only the workflow lesson.
+- Findings are evidence, not rules. Never change this skill from them. Only the designer moves an item to Reviewed, Approved or Rejected (an agent may reject a duplicate as merged).
+- At session end, list the open SF ids (Status not Applied or Rejected) in your report. When you are authorized to write and the block exists, also update its Handoff section.
+- Format, statuses, merging and the review steps: references/skill-findings.md.
+
 ## Versioning
 
 Three versions, each written where an agent sees it on first read:
@@ -99,7 +112,7 @@ Three versions, each written where an agent sees it on first read:
 
 At session start in a tier 2 file, compare its stamp with the base RULES version and this skill's version:
 - Base rules newer: read the base CHANGELOG "Rules versions" from the stamped version up, list the app parts it affects, tell the designer, and update the affected parts with approval. Then update the stamp.
-- Skill newer: apply the format changes listed in README.md for the versions in between (for example the block split in 1.1), then update the stamp.
+- Skill newer: apply the format changes listed in README.md for the versions in between (for example the block split in 1.1), then update the stamp. A format change that creates a block or edits RULES needs the designer's rules maintenance OK first. Without it, leave the stamp and say which changes are pending.
 - Stamp missing: add it with today's versions after reading both, and say so.
 - No RULES block at all: follow "Starting a tier 2 file with no rules" in references/new-app.md first.
 
@@ -215,4 +228,4 @@ For IAA/IAP apps, think about where ads and upsells fire: native ad between cont
 - In app files, every annotation, sticky note and dev note is in Vietnamese. Screen copy stays in the app's language, and image prompts stay in English.
 - Summarize a plan before long work.
 - Say clearly what changed, what didn't, and what is waiting on them.
-- When you end a session, rewrite the PROGRESS HANDOFF so the next agent can start cold.
+- When you end a session in the base, rewrite the PROGRESS HANDOFF so the next agent can start cold. In a tier 2 file, report the open SF ids (see Skill findings).

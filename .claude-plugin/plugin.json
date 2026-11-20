@@ -1,0 +1,6 @@
+{
+  "name": "hagen-design-system-base",
+  "description": "Process skill for Hagen's mobile design system in Figma: the base file, the Tier 2 Template and the app files built on it.",
+  "author": { "name": "Hagen Bui" },
+  "repository": "https://github.com/hagenbui/hagen-design-system-base"
+}

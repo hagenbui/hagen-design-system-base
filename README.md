@@ -1,25 +1,28 @@
 # Hagen Design System Base skill
 
-Agent skill for working on the Hagen Design System Base Figma file and the tier 2 app files built on it. The instructions live in `SKILL.md`.
+Agent skill for working on the Hagen Design System Base Figma file and the tier 2 app files built on it. The instructions live in `skills/hagen-design-system-base/SKILL.md`, with reference files next to it.
 
-## Install (all agents, global)
+This repo is also a plugin marketplace, so a push updates the skill for everyone who installed it as a plugin. The plugin has no version number on purpose: every pushed commit counts as a new version. The skill version line in SKILL.md stays the human-readable version.
 
-```
-npx skills add hagenbui/hagen-design-system-base -g
-```
+## Install
 
-This is a private repo, so the Mac running the command must be signed in to GitHub.
+This is a private repo, so every install needs read access to it on GitHub.
+
+- **Claude Code (once per person):** run `/plugin marketplace add hagenbui/hagen-design-system-base`, then `/plugin install hagen-design-system-base@hagen-design-system`. In `/plugin`, Marketplaces, turn on auto-update for hagen-design-system so new pushes arrive at startup.
+- **Cowork and claude.ai (once per organization):** an owner adds this GitHub repo as a plugin marketplace in the organization's plugin settings and makes the plugin available or required for the team. It syncs from GitHub after each push.
+- **Other agents:** `npx skills add hagenbui/hagen-design-system-base -g`. This path does not auto-update: run it again after each push.
 
 ## Update
 
-1. Edit `SKILL.md` here, bump its version line, add a line below, and commit.
-2. Run the install command again to pull the new version into every agent.
+1. Edit `skills/hagen-design-system-base/SKILL.md`, bump its version line, add a line under Versions, and commit.
+2. Push. Plugin installs pick it up on their next sync or session start.
 
 ## Versions
 
 Minor (1.1 to 1.2): wording and process. Major (1.x to 2.0): the page format in the Figma files changes. Each app file's RULES block stamps the skill version it was last checked against.
 
 - **2.9 (2026-11-20)**: the skill often didn't load when the designer worked in an app file or pasted a Figma link, because the description named only the base file. The description now names the file keys, tier 2 app files (Kid Calendar, Palm Reader), the task types, Vietnamese prompts and bare figma.com links, and says to load this skill before the Figma plugin skills. New section "Is this file part of the system?" so an agent that loaded the skill on a link can tell whether it applies. No format change in the files. Source: designer.
+  - Repo layout (2026-11-20): the skill moved to skills/hagen-design-system-base/, and the repo is now a plugin and marketplace so a push updates installs.
 - **2.8 (2026-11-18)**: kept as a minor version at the designer's request, although it adds a block (see the format change below). New section "Skill findings (lessons inbox)" and the reference references/skill-findings.md (entry format, statuses, merging, review). Agents collect lessons about how they work (designer corrections, repeated mistakes, unclear instructions, tool pitfalls, missing checks) for the designer to review. Findings never change the skill on their own. Source: designer, from the Kid Calendar draft.
   - Format change in the files: tier 2 files get a block SKILL FINDINGS on AGENT RULES (PROJECT), separate from FINDINGS (base gaps), and a SKILL FINDINGS row in the RULES read guide. The block text, the intro line and the row are in references/skill-findings.md, "Adding the block to a file that has none". Needs the designer's rules maintenance OK per file.
   - Migrated 2026-11-18: Tier 2 Template and Kid Calendar (SF-1 to SF-3 reformatted). Palm Reader is not migrated: its stamp is older than 2.0, so its next session applies every format change from its stamp up, this one included.

@@ -1,15 +1,19 @@
 ---
 name: "hagen-design-system-base"
-description: "Use for any work on the Hagen Design System Base Figma file or a tier 2 app file built on it: rules, tokens, components, screens, audits."
+description: "Process skill for Hagen's mobile design system in Figma. Load it first, before figma-use, figma-generate-design or any other Figma skill, whenever a task touches a Figma file in this system: the base file 'Design System Base' (MRoPpfFSMqPoSPd7LO8kOS), the Tier 2 Template (snpHcKTKy0rzuFnC9h4570), or any app file built on it, such as Kid Calendar or Palm Reader. Use it for building or editing screens, flows, wraps and App Components, components and variants, tokens, variables, text styles, rules, audits, the done check, skill findings and starting a new app, also when the prompt only names an app or a screen, or is in Vietnamese. If the user pastes a figma.com link and you are unsure which file it is, load this skill and check whether the file has an AGENT RULES page."
 ---
 
 # Hagen Design System Base: how to work
 
-**Skill version 2.8 (2026-11-18).** Changes per version: README.md.
+**Skill version 2.9 (2026-11-20).** Changes per version: README.md.
 
 The goal is an agent-ready mobile design system for IAA/IAP (ad and in-app-purchase monetized) apps. An agent given a prompt should be able to build a full working app from components, tokens and rules only, without inventing layout.
 
 The rules live IN the Figma files. This skill is the process. Where this skill and the file disagree, the file wins. The designer's chat wins over both.
+
+## Is this file part of the system?
+
+The file belongs to this system if it is the base or the Tier 2 Template (keys under Files), or it has a page AGENT RULES or AGENT RULES (PROJECT). If it has neither and the designer didn't say it is built on the base, ask before applying this skill. A file built on the base with no rules yet follows "Starting a tier 2 file with no rules" in references/new-app.md.
 
 ## Files
 
